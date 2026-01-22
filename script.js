@@ -1,8 +1,6 @@
 const hamburger = document.getElementById("hamburger");
 const navMenu = document.getElementById("nav-menu");
 const toggle = document.getElementById("darkToggle");
-const confirmation = document.querySelector(".confirmation-popup");
-const closeBtn = document.querySelector(".close-btn");
 
 hamburger.addEventListener("click", () => {
   navMenu.classList.toggle("active");
@@ -50,10 +48,14 @@ if (totalItems <= visibleItems) {
   });
 })();
 
-function sendEmail() {
+function sendEmail(event) {
+  event.preventDefault();
+
   const name = document.getElementById("name").value.trim();
   const email = document.getElementById("email").value.trim();
   const message = document.getElementById("message").value.trim();
+  const confirmation = document.querySelector(".confirmation-popup");
+  const closeBtn = document.querySelector(".close-btn");
 
   // 🔴 Validation
   if (!name || !email || !message) {
@@ -72,7 +74,7 @@ function sendEmail() {
     .then(() => {
       // ✅ Success
       confirmation.style.display = "block";
-
+      document.getElementById("contactForm").reset();
       document.getElementById("name").value = "";
       document.getElementById("email").value = "";
       document.getElementById("message").value = "";
