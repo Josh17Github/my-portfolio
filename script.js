@@ -74,5 +74,5 @@ function sendEmail() {
 
 closeBtn.addEventListener("click", () => {
   confirmation.style.display = "none";
-  confirmation.style.transition = "transform 0.6 ease";
+  confirmation.style.transition = "transform 0.8 ease";
 });
