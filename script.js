@@ -51,28 +51,40 @@ if (totalItems <= visibleItems) {
 })();
 
 function sendEmail() {
-  let params = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
-    message: document.getElementById("message").value,
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  // 🔴 Validation
+  if (!name || !email || !message) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  const params = {
+    name,
+    email,
+    message,
   };
-  emailjs.send("service_w8qcfhc", "template_ayuv0tc", params).then(
-    (response) => {
+
+  emailjs
+    .send("service_w8qcfhc", "template_ayuv0tc", params)
+    .then(() => {
+      // ✅ Success
       confirmation.style.display = "block";
+
       document.getElementById("name").value = "";
       document.getElementById("email").value = "";
       document.getElementById("message").value = "";
-    },
-    (error) => {
-      console.log("FAILED...", error);
-      document.getElementById("name").value = "";
-      document.getElementById("email").value = "";
-      document.getElementById("message").value = "";
-    },
-  );
+    })
+    .catch((error) => {
+      // ❌ Error
+      console.error("FAILED...", error);
+      alert("Failed to send message. Please try again.");
+    });
 }
 
+// Close popup
 closeBtn.addEventListener("click", () => {
   confirmation.style.display = "none";
-  confirmation.style.transition = "transform 0.8 ease";
 });
